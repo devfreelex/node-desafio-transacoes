@@ -24,11 +24,12 @@ transactionRouter.get('/', (request, response) => {
 transactionRouter.post('/', (request, response) => {
   try {
     const { type, value, title } = request.body;
-    const createTransaction = new CreateTransactionService( transactionsRepository );
+    const createTransaction = new CreateTransactionService(
+      transactionsRepository,
+    );
     const transaction = createTransaction.execute({ type, value, title });
 
     return response.json(transaction);
-
   } catch (err) {
     return response.status(400).json({ error: err.message });
   }
